@@ -26,7 +26,7 @@ const searchForParks = (distance) => {
     document.getElementById('userDistance').innerHTML = distance;
     // TODO: make this DOM EL a variable
     // set UI element > user's latitude/longitude
-    document.getElementById('userLocation').innerHTML = `Latitude: ${lat.toFixed(3)}; Longitude: ${long.toFixed(3)};`
+    document.getElementById('userLocation').innerHTML = `Latitude: ${lat.toFixed(3)}; Longitude: ${long.toFixed(3)}`;
     // find parks located within a distance of user's location
     queryFeatures(queryGeometry, distance);
     // show UI element > results title and table

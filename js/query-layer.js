@@ -21,10 +21,15 @@ export const queryFeatures = (geometry, distance) => {
           // comment or remove in production
           console.log(data); //response.features
 
+          // set UI element > number of parks returned
+          document.getElementById('numberParks').innerHTML = data.length;
+
           // if there are no returned local parks, add a message to the user, and exit out of the function
           if (data.length === 0) {
             // set message for user
-            element.innerHTML = `No parks are located within ${distance}-miles of your location`;
+            // TODO: define this element
+            //element.innerHTML = `No parks are located within ${distance}-miles of your location`;
+            console.warn(`No parks are located within ${distance}-miles of your location`);
             // exit from function
             return;
           }
