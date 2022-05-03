@@ -28,7 +28,9 @@ const searchForParks = (distance) => {
     // set UI element > user's latitude/longitude
     document.getElementById('userLocation').innerHTML = `Latitude: ${lat.toFixed(3)}; Longitude: ${long.toFixed(3)}`;
     // find parks located within a distance of user's location
-    queryFeatures(queryGeometry, distance);
+    queryFeatures(queryGeometry, distance, webmap);
+    // center map on user's location
+    webmap.setView([lat, long], 14); // set arbitrary zoom
     // show UI element > results title and table
     $('#resultsModal').modal('show');
   }).catch((err) => {
