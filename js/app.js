@@ -1,17 +1,7 @@
-import { getCurrentPosition,setQueryGeometry } from './process-user-location.js';
+import { getCurrentPosition, setQueryGeometry } from './process-user-location.js';
 import { queryFeatures } from './query-layer.js';
 import { webmap } from './map.js';
-
-// open modal windows
-// Open Search info window
-$("#search-btn").click(function() {
-  $('#searchModal').modal('show');
-});
-
-// Open About info window
-$("#about-btn").click(function() {
-  $('#aboutModal').modal('show');
-});
+import './modals.js';
 
 // ui element
 const locationEl = document.getElementById('userLocation');
@@ -22,8 +12,7 @@ let long;
 
 // create a function and import this function
 const searchForParks = (distance) => {
-  getCurrentPosition()
-  .then((position) => {
+  getCurrentPosition().then((position) => {
     // hide search modal
     $("#searchModal").modal('hide');
     console.log(position);
@@ -32,14 +21,17 @@ const searchForParks = (distance) => {
     long = position.coords.longitude;
     // create geometry object from user's location
     const queryGeometry = setQueryGeometry(lat, long);
+    // TODO: make this DOM EL a variable
     // set UI element > distance used in analysis
     document.getElementById('userDistance').innerHTML = distance;
-    // show UI element > results title and table
-    document.getElementById('resultsContainer').style.display = 'block';
+    // TODO: make this DOM EL a variable
+    // set UI element > user's latitude/longitude
+    document.getElementById('userLocation').innerHTML = `Latitude: ${lat.toFixed(3)}; Longitude: ${long.toFixed(3)};`
     // find parks located within a distance of user's location
     queryFeatures(queryGeometry, distance);
-  })
-  .catch((err) => {
+    // show UI element > results title and table
+    $('#resultsModal').modal('show');
+  }).catch((err) => {
     console.error(err.message);
   });
 };
@@ -47,6 +39,7 @@ const searchForParks = (distance) => {
 // wire up click event listener
 const searchBtn = document.getElementById('applySearch');
 //
-searchBtn.addEventListener('click', () => {
+searchBtn.addEventListener('click', (e) => {
+  console.log(e);
   searchForParks(document.getElementById('queryDistance').value);
 });
