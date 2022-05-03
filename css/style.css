@@ -4,20 +4,21 @@ html {
     box-sizing: border-box;
   }
 
-  html,
-  body,
-  #webmap {
-    width: 100vw;
-    height: 100vh;
-    overflow-x: hidden;
-  }
-
   *,
   *:before,
   *:after {
     -webkit-box-sizing: inherit;
     -moz-box-sizing: inherit;
     box-sizing: inherit;
+}
+
+html,
+body,
+#container,
+#webmap {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -67,10 +68,6 @@ td div {
     padding: 15px;
     border: solid 2px red;
     background-color: #ddd;
-}
-
-#resultsContainer {
-    display: none;
 }
 
 /* header */
