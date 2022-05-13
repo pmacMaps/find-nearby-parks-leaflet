@@ -5,6 +5,8 @@ import './modals.js';
 
 // ui element
 const locationEl = document.getElementById('userLocation');
+// results element
+const resultCard = document.getElementById('resultsCard');
 // user's latitude
 let lat;
 // user's longitude
@@ -32,7 +34,7 @@ const searchForParks = (distance) => {
     // center map on user's location
     webmap.setView([lat, long], 14); // set arbitrary zoom
     // show UI element > results title and table
-    $('#resultsModal').modal('show');
+    resultCard.style.display = 'flex';
   }).catch((err) => {
     console.error(err.message);
   });

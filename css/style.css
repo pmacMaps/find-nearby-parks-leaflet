@@ -84,4 +84,20 @@ header h1 {
 nav ul.dropdown.dropdown-menu {
     right: 10px;
     left: inherit;
+    z-index: 1600;
+}
+
+#resultsCard {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    width: 40vw;
+    max-height: 75vh;
+    right: 5px;
+    top: 65px;
+}
+
+#resultsCard div.card-body {
+    min-height: 200px;
+    overflow-y: scroll;
 }
