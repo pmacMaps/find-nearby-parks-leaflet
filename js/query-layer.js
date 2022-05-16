@@ -1,11 +1,11 @@
 import { buildTable } from './table-ui.js';
 
 // define this
-export const queryFeatures = (geometry, distance, webmap) => {
+export const queryFeatures = (geometry, distance, webmap, layerGroup) => {
     arcgisRest
         .queryFeatures({
           url: "https://www.gis.dcnr.state.pa.us/agsprod/rest/services/BRC/LocalParks/MapServer/1", // PA local parks from DCNR
-          f: "json", // response format
+          f: "geojson", // response format ; was 'json'
           geometry: geometry, // geometry object to use in spatial query
           distance: distance, // distance to use in spatial query
           units: "esriSRUnit_StatuteMile", // units to use in spatial query
@@ -35,12 +35,14 @@ export const queryFeatures = (geometry, distance, webmap) => {
           }
 
           // build table of parks returned from spatial analysis
-          buildTable(document.getElementById('records'), data);
-          // add parks to map
-          // TODO: convert features to GeoJSON
-          // see: https://github.com/Esri/arcgis-to-geojson-utils
-          // a function to convert json entries to geojson entries
-          //L.geoJSON([something]).addTo(webmap);
+          // TODO: fix this due to response now being GeoJSON
+          //buildTable(document.getElementById('records'), data);
+          //console.log(response);
+          const parksLayer = L.geoJSON(response);
+          // add queried parks to group layer
+          layerGroup.addLayer(parksLayer);
+          // set extent of map to queried parks
+          webmap.fitBounds(parksLayer.getBounds());
         })
         .catch(error => {
           console.log(`Error fetching service: ${error}`);

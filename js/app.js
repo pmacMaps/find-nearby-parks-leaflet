@@ -11,6 +11,10 @@ const resultCard = document.getElementById('resultsCard');
 let lat;
 // user's longitude
 let long;
+// layer group to hold queried parks
+const parksLayerGroup = L.layerGroup();
+// add layer group to webmap
+parksLayerGroup.addTo(webmap);
 
 // create a function and import this function
 const searchForParks = (distance) => {
@@ -29,10 +33,12 @@ const searchForParks = (distance) => {
     // TODO: make this DOM EL a variable
     // set UI element > user's latitude/longitude
     document.getElementById('userLocation').innerHTML = `Latitude: ${lat.toFixed(3)}; Longitude: ${long.toFixed(3)}`;
+    // remove existing parks from map
+    parksLayerGroup.getLayers().forEach(element => {
+      element.removeFrom(webmap);
+    });
     // find parks located within a distance of user's location
-    queryFeatures(queryGeometry, distance, webmap);
-    // center map on user's location
-    webmap.setView([lat, long], 14); // set arbitrary zoom
+    queryFeatures(queryGeometry, distance, webmap, parksLayerGroup);
     // show UI element > results title and table
     resultCard.style.display = 'flex';
   }).catch((err) => {
@@ -42,7 +48,7 @@ const searchForParks = (distance) => {
 
 // wire up click event listener
 const searchBtn = document.getElementById('applySearch');
-//
+// 
 searchBtn.addEventListener('click', (e) => {
   console.log(e);
   searchForParks(document.getElementById('queryDistance').value);
