@@ -1,3 +1,5 @@
+import 'bootstrap';
+import { layerGroup } from 'leaflet';
 import { getCurrentPosition, setQueryGeometry } from './process-user-location.js';
 import { queryFeatures } from './query-layer.js';
 import { webmap } from './map.js';
@@ -12,7 +14,7 @@ let lat;
 // user's longitude
 let long;
 // layer group to hold queried parks
-const parksLayerGroup = L.layerGroup();
+const parksLayerGroup = new layerGroup();
 // add layer group to webmap
 parksLayerGroup.addTo(webmap);
 

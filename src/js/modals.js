@@ -1,3 +1,5 @@
+window.$ = require('jquery');
+
 // open modal windows
 // Open Search info window
 $("#search-btn").click(function() {

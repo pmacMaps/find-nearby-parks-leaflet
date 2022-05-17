@@ -1,9 +1,10 @@
+import { queryFeatures } from '@esri/arcgis-rest-feature-layer';
+import { geoJSON } from 'leaflet';
 import { buildTable } from './table-ui.js';
 
 // define this
 export const queryFeatures = (geometry, distance, webmap, layerGroup) => {
-    arcgisRest
-        .queryFeatures({
+    queryFeatures({
           url: "https://www.gis.dcnr.state.pa.us/agsprod/rest/services/BRC/LocalParks/MapServer/1", // PA local parks from DCNR
           f: "geojson", // response format ; was 'json'
           geometry: geometry, // geometry object to use in spatial query
@@ -37,7 +38,7 @@ export const queryFeatures = (geometry, distance, webmap, layerGroup) => {
           // build table of parks returned from spatial analysis
           buildTable(document.getElementById('records'), data);
           //console.log(response);
-          const parksLayer = L.geoJSON(response);
+          const parksLayer = new geoJSON(response);
           // add queried parks to group layer
           layerGroup.addLayer(parksLayer);
           // set extent of map to queried parks

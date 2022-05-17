@@ -1,5 +1,5 @@
 /* imports */
-@import '../../node_modules/bootstrap/dist/css/bootstrap-grid.min.css';
+@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @Import '../../node_modules/leaflet/dist/leaflet.css';
 
 html {
