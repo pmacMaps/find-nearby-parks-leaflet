@@ -2,25 +2,23 @@ import { queryFeatures } from '@esri/arcgis-rest-feature-layer';
 import { geoJSON } from 'leaflet';
 import { buildTable } from './table-ui.js';
 
-// define this
+// query Local Parks layer from PA DCNR within a distance of user's location
 export const queryFeatures = (geometry, distance, webmap, layerGroup) => {
     queryFeatures({
-          url: "https://www.gis.dcnr.state.pa.us/agsprod/rest/services/BRC/LocalParks/MapServer/1", // PA local parks from DCNR
-          f: "geojson", // response format ; was 'json'
-          geometry: geometry, // geometry object to use in spatial query
-          distance: distance, // distance to use in spatial query
-          units: "esriSRUnit_StatuteMile", // units to use in spatial query
-          geometryType: "esriGeometryPoint", // geometry type of geometry parameter
-          spatialRel: "esriSpatialRelIntersects", // type of spatial query to use
-          returnGeometry: true, // do return geometry of returned features,
-          orderByFields: 'PARK_NAME', // sort fields by park name
-          outFields: ['PARK_NAME', 'PREMISE_ADDRESS', 'PREMISE_CITY', 'PREMISE_ZIP', 'URL'] // best practice to return only needed fields
+          url: "https://www.gis.dcnr.state.pa.us/agsprod/rest/services/BRC/LocalParks/MapServer/1",
+          f: "geojson",
+          geometry: geometry,
+          distance: distance,
+          units: "esriSRUnit_StatuteMile",
+          geometryType: "esriGeometryPoint",
+          spatialRel: "esriSpatialRelIntersects",
+          returnGeometry: true,
+          orderByFields: 'PARK_NAME',
+          outFields: ['PARK_NAME', 'PREMISE_ADDRESS', 'PREMISE_CITY', 'PREMISE_ZIP']
         })
         .then((response) => {
           // local parks returned from spatial query
           const data = response.features;
-          // comment or remove in production
-          console.log(data); //response.features
 
           // set UI element > number of parks returned
           document.getElementById('numberParks').innerHTML = data.length;
@@ -37,14 +35,17 @@ export const queryFeatures = (geometry, distance, webmap, layerGroup) => {
 
           // build table of parks returned from spatial analysis
           buildTable(document.getElementById('records'), data);
-          //console.log(response);
+
+          // create layer for queried parks
           const parksLayer = new geoJSON(response);
+
           // add queried parks to group layer
           layerGroup.addLayer(parksLayer);
+
           // set extent of map to queried parks
           webmap.fitBounds(parksLayer.getBounds());
         })
         .catch(error => {
           console.log(`Error: ${error}`);
-        }); // add error handling
+        });
 }
