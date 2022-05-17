@@ -1,9 +1,9 @@
 // populate data into a shell table
-export const buildTable = (table,features) => {
-    for (const feature of features) {
+export const buildTable = (table,data) => {
+    for (const feature of data) {
         let newRow = table.insertRow(-1);
-        addRow(newRow, feature.attributes.PARK_NAME);
-        addRow(newRow, `${feature.attributes.PREMISE_ADDRESS}, ${feature.attributes.PREMISE_CITY}, PA ${feature.attributes.PREMISE_ZIP}`);
+        addRow(newRow, feature.properties.PARK_NAME);
+        addRow(newRow, `${feature.properties.PREMISE_ADDRESS}, ${feature.properties.PREMISE_CITY}, PA ${feature.properties.PREMISE_ZIP}`);
     }
 }
 

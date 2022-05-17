@@ -35,8 +35,7 @@ export const queryFeatures = (geometry, distance, webmap, layerGroup) => {
           }
 
           // build table of parks returned from spatial analysis
-          // TODO: fix this due to response now being GeoJSON
-          //buildTable(document.getElementById('records'), data);
+          buildTable(document.getElementById('records'), data);
           //console.log(response);
           const parksLayer = L.geoJSON(response);
           // add queried parks to group layer
@@ -45,6 +44,6 @@ export const queryFeatures = (geometry, distance, webmap, layerGroup) => {
           webmap.fitBounds(parksLayer.getBounds());
         })
         .catch(error => {
-          console.log(`Error fetching service: ${error}`);
+          console.log(`Error: ${error}`);
         }); // add error handling
 }
