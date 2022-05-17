@@ -1,0 +1,34 @@
+{
+  "name": "find-nearby-parks-leaflet",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "source": "src/index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmacMaps/find-nearby-parks-leaflet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pmacMaps/find-nearby-parks-leaflet/issues"
+  },
+  "homepage": "https://github.com/pmacMaps/find-nearby-parks-leaflet#readme",
+  "devDependencies": {
+    "parcel": "^2.5.0"
+  },
+  "dependencies": {
+    "@esri/arcgis-rest-feature-layer": "^3.4.3",
+    "@esri/arcgis-rest-request": "^3.4.3",
+    "@popperjs/core": "^2.11.5",
+    "bootstrap": "^4.6.1",
+    "jquery": "^3.6.0",
+    "leaflet": "^1.8.0"
+  }
+}
