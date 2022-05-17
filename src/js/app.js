@@ -4,6 +4,7 @@ import { getCurrentPosition, setQueryGeometry } from './process-user-location.js
 import { queryFeatures } from './query-layer.js';
 import { webmap } from './map.js';
 import { createUserMapMarker } from './user-map-marker.js';
+import { deleteRows } from './table-ui.js';
 import './modals.js';
 
 // ui element > user's location
@@ -12,10 +13,23 @@ const locationEl = document.getElementById('userLocation');
 const distanceEl = document.getElementById('userDistance');
 // ui element > results from analysis
 const resultCard = document.getElementById('resultsCard');
+// ui element > container for error messages
+const errorMsgEl = document.getElementById('errorMsg');
+// button to close results card
+const closeResultsBtn = document.getElementById('closeResults');
+// button to run parks search
+const searchBtn = document.getElementById('applySearch');
 // user's latitude
 let lat;
 // user's longitude
 let long;
+
+// add error messages to ui element
+export const addErrorMsg = (message) => {
+  const pEl = document.createElement('p');
+  pEl.innerHTML = message;
+  errorMsgEl.append(pEl);
+}
 
 // layer group to hold queried parks
 const parksLayerGroup = new layerGroup();
@@ -54,21 +68,32 @@ const searchForParks = (distance) => {
     userLocationLayerGroup.getLayers().forEach(element => {
       element.removeFrom(webmap);
     });
+
+    // delete existing content from table
+    deleteRows(document.getElementById('records'));
+
     // find parks located within a distance of user's location
     queryFeatures(queryGeometry, distance, webmap, parksLayerGroup, userLocationLayerGroup);
+
     // add map layer for user's location
     const userMarker = createUserMapMarker(lat, long);
     userLocationLayerGroup.addLayer(userMarker);
+
     // show UI element > results title and table
     resultCard.style.display = 'flex';
   }).catch((err) => {
     console.error(err.message);
+    addErrorMsg(err.message);
   });
 };
 
-// wire up click event listener
-const searchBtn = document.getElementById('applySearch');
+// Add event listeners
 // search for parks near user's location when button is clicked
 searchBtn.addEventListener('click', (e) => {
   searchForParks(document.getElementById('queryDistance').value);
+});
+
+// close results card
+closeResultsBtn.addEventListener('click', (e) => {
+  resultCard.style.display = 'none';
 });

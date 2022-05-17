@@ -14,3 +14,10 @@ const addRow = (row,value) => {
     div.innerHTML = value;
     newCell.appendChild(div);
 }
+
+// delete rows from table
+export const deleteRows = (table) => {
+    while (table.lastElementChild) {
+       table.removeChild(table.lastElementChild);
+   }
+}

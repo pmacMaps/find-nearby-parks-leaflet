@@ -1,6 +1,7 @@
 import { queryFeatures } from '@esri/arcgis-rest-feature-layer';
 import { geoJSON } from 'leaflet';
 import { buildTable } from './table-ui.js';
+import { addErrorMsg } from './app.js';
 
 // query Local Parks layer from PA DCNR within a distance of user's location
 export const queryFeatures = (geometry, distance, webmap, layerGroup) => {
@@ -26,9 +27,9 @@ export const queryFeatures = (geometry, distance, webmap, layerGroup) => {
           // if there are no returned local parks, add a message to the user, and exit out of the function
           if (data.length === 0) {
             // set message for user
-            // TODO: define this element
-            //element.innerHTML = `No parks are located within ${distance}-miles of your location`;
-            console.warn(`No parks are located within ${distance}-miles of your location`);
+            const noResultsMsg = `No parks are located within ${distance}-miles of your location`;
+            addErrorMsg(noResultsMsg);
+            console.warn(noResultsMsg);
             // exit from function
             return;
           }
@@ -47,5 +48,6 @@ export const queryFeatures = (geometry, distance, webmap, layerGroup) => {
         })
         .catch(error => {
           console.log(`Error: ${error}`);
+          addErrorMsg(`Error: ${error}`);
         });
 }
