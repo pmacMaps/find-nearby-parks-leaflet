@@ -7,3 +7,6 @@ export const webmap = new map('webmap', {
     zoom: 7,
     layers: [osm]
 });
+
+// add attribution for PA DCNR
+webmap.attributionControl.addAttribution('PA Dept. Conservation & Natural Resources');

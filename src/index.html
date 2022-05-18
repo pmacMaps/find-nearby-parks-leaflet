@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Nearby Parks</title>
-    <!-- Stylesheets -->
-    <!-- Our CSS Rules -->
+    <!-- app style rules -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -27,7 +26,7 @@
         <!-- results widget -->
         <div id="resultsCard" class="card text-center">
             <div class="card-header">
-            <h5>Nearby Parks</h5>
+            <h5>Parks Near Your Location</h5>
             </div>
             <div class="card-body">
                 <p>There are <span id="numberParks">...</span> parks located within <span id="userDistance">...</span>-miles of your location (<span id="userLocation">...</span>).</p>
@@ -58,9 +57,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>TODO: wire up form</p>
                     <div class="form-group">
-                        <label for="queryDistance">Select Miles to Search:</label>
+                        <p>Enter how far from your location to search for parks.</p>
+                        <label for="queryDistance">Search Distance (miles):</label>
                         <input class="form-control" type="number" id="queryDistance">
                     </div>
                     <div class="form-group">
@@ -84,7 +83,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>TODO: add text</p>
+                    <p>This concept app allows users to find a Pennsylvania Local Park near their current location.  It utilizes data from the <a href="https://www.dcnr.pa.gov/Communities/LocalParks/Pages/default.aspx">Pennsylvania Department of Conservation & Natural Resources</a> (DCNR).</p>
+                    <p>The app uses the <a href="https://leafletjs.com/">Leaflet.js</a> library for the interactive web map.  The <a href="https://developers.arcgis.com/arcgis-rest-js/">ArcGIS REST JS</a> library is used to query features from the DCNR Local Parks map service.  If interested, check out the source code on <a href="https://github.com/pmacMaps/find-nearby-parks-leaflet">GitHub</a>.</p>
+                    <p>The user selects a distance to perform a spatial intersects analysis.  The queried parks are added to the web map, and listed in a table to the user.</p>
+                    <p>Below are some potential future enhancements:</p>
+                    <ul>
+                        <li>Sort results based upon distance to user's location</li>
+                        <li>Add a link to driving directions using centroid of park</li>
+                        <li>Adding an option to search against pre-defined coordinates in Pennsylvania (for users outside of Pennsylvania)</li>
+                    </ul>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

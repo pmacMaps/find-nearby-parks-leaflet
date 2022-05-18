@@ -105,3 +105,13 @@ nav ul.dropdown.dropdown-menu {
     min-height: 200px;
     overflow-y: scroll;
 }
+
+@media screen and (max-width:600px) {
+    div.modal-body {
+        max-height: 275px;
+        overflow-y: auto;
+    }
+    #resultsCard {
+        width: 90vw;
+    }
+}
