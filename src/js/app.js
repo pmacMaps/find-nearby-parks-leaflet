@@ -5,6 +5,7 @@ import { queryFeatures } from './query-layer.js';
 import { webmap } from './map.js';
 import { createUserMapMarker } from './user-map-marker.js';
 import { deleteRows } from './table-ui.js';
+import { getPaCoordinates } from './random-pa-locations.js';
 import './modals.js';
 
 // ui element > user's location
@@ -19,6 +20,8 @@ const errorMsgEl = document.getElementById('errorMsg');
 const closeResultsBtn = document.getElementById('closeResults');
 // button to run parks search
 const searchBtn = document.getElementById('applySearch');
+// checkbox to use Pennsylvania location
+const overwriteLocationEl = document.getElementById('selectPa');
 // user's latitude
 let lat;
 // user's longitude
@@ -47,9 +50,16 @@ const searchForParks = (distance) => {
     // hide search modal
     $("#searchModal").modal('hide');
 
-    // set user's latitude and longitude
-    lat = position.coords.latitude;
-    long = position.coords.longitude;
+    if (overwriteLocationEl.checked) {
+      // set location of search from PA coordinates
+      const coords =getPaCoordinates();
+      lat = coords[0];
+      long = coords[1];
+    } else {
+      // set location of search from user's location
+      lat = position.coords.latitude;
+      long = position.coords.longitude;
+    }
 
     // create geometry object from user's location
     const queryGeometry = setQueryGeometry(lat, long);
