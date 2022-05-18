@@ -3,7 +3,11 @@ export const buildTable = (table,data) => {
     for (const feature of data) {
         let newRow = table.insertRow(-1);
         addRow(newRow, feature.properties.PARK_NAME);
-        addRow(newRow, `${feature.properties.PREMISE_ADDRESS}, ${feature.properties.PREMISE_CITY}, PA ${feature.properties.PREMISE_ZIP}`);
+        if (!feature.properties.PREMISE_ADDRESS || feature.properties.PREMISE_ADDRESS === '' || feature.properties.PREMISE_ADDRESS === ' ') {
+            addRow(newRow, 'No address data available');
+        } else {
+            addRow(newRow, `${feature.properties.PREMISE_ADDRESS}, ${feature.properties.PREMISE_CITY}, PA ${feature.properties.PREMISE_ZIP}`);
+        }
     }
 }
 
