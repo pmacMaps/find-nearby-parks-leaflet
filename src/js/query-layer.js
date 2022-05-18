@@ -4,7 +4,7 @@ import { buildTable } from './table-ui.js';
 import { addErrorMsg } from './app.js';
 
 // query Local Parks layer from PA DCNR within a distance of user's location
-export const queryFeatures = (geometry, distance, webmap, layerGroup) => {
+export const queryParks = (geometry, distance, webmap, layerGroup) => {
     queryFeatures({
           url: "https://www.gis.dcnr.state.pa.us/agsprod/rest/services/BRC/LocalParks/MapServer/1",
           f: "geojson",

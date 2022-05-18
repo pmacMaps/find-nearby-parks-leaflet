@@ -1,7 +1,7 @@
 import 'bootstrap';
 import { layerGroup } from 'leaflet';
 import { getCurrentPosition, setQueryGeometry } from './process-user-location.js';
-import { queryFeatures } from './query-layer.js';
+import { queryParks } from './query-layer.js';
 import { webmap } from './map.js';
 import { createUserMapMarker } from './user-map-marker.js';
 import { deleteRows } from './table-ui.js';
@@ -83,7 +83,7 @@ const searchForParks = (distance) => {
     deleteRows(document.getElementById('records'));
 
     // find parks located within a distance of user's location
-    queryFeatures(queryGeometry, distance, webmap, parksLayerGroup, userLocationLayerGroup);
+    queryParks(queryGeometry, distance, webmap, parksLayerGroup, userLocationLayerGroup);
 
     // add map layer for user's location
     const userMarker = createUserMapMarker(lat, long);
