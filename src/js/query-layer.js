@@ -38,7 +38,16 @@ export const queryFeatures = (geometry, distance, webmap, layerGroup) => {
           buildTable(document.getElementById('records'), data);
 
           // create layer for queried parks
-          const parksLayer = new geoJSON(response);
+          const parksLayer = new geoJSON(response, {
+            style: function(feature) {
+              return {
+                color: '#FFFF00',
+                weight: 1.5,
+                fillColor: '#c9f7c9',
+                fillOpacity: 0.5
+              }
+            }
+          });
 
           // add queried parks to group layer
           layerGroup.addLayer(parksLayer);
