@@ -46,6 +46,12 @@ export const queryParks = (geometry, distance, webmap, layerGroup) => {
                 fillColor: '#c9f7c9',
                 fillOpacity: 0.5
               }
+            },
+            onEachFeature: function(feature, layer) {
+              layer.bindTooltip(feature.properties.PARK_NAME, {
+                direction: 'center',
+                className: 'parksLabel'
+              });
             }
           });
 
