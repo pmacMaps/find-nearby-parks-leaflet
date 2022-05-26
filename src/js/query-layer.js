@@ -2,10 +2,11 @@ import { queryFeatures } from '@esri/arcgis-rest-feature-layer';
 import { geoJSON } from 'leaflet';
 import { buildTable } from './table-ui.js';
 import { addErrorMsg } from './app.js';
+import { generateDirectionsUrl } from './process-centroid-coords';
 
 // query Local Parks layer from PA DCNR within a distance of user's location
 export const queryParks = (geometry, distance, webmap, layerGroup) => {
-    queryFeatures({
+  queryFeatures({
           url: "https://www.gis.dcnr.state.pa.us/agsprod/rest/services/BRC/LocalParks/MapServer/1",
           f: "geojson",
           geometry: geometry,
@@ -39,6 +40,12 @@ export const queryParks = (geometry, distance, webmap, layerGroup) => {
           // build table of parks returned from spatial analysis
           buildTable(document.getElementById('records'), data);
 
+         for (const feature of data) {
+          console.log(generateDirectionsUrl(geometry.y, geometry.x, feature.properties.Lat_Cen, feature.properties.Long_Cen));
+          };
+
+          // TODO: incorporate driving directions url into display table or park tooltip
+
           // create layer for queried parks
           const parksLayer = new geoJSON(response, {
             style: function(feature) {
@@ -62,6 +69,9 @@ export const queryParks = (geometry, distance, webmap, layerGroup) => {
 
           // set extent of map to queried parks
           webmap.fitBounds(parksLayer.getBounds());
+
+          // test
+          return data;
         })
         .catch(error => {
           console.log(`Error: ${error}`);

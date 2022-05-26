@@ -2,14 +2,17 @@
 // create driving directions to park's centroid
 // need to test that centroid coords are not null
 // if null, return nothing or default text
-export const generateDirectionsUrl = (lat, long) => {
+// userLat and userLong are latitude and longitude coordinates of user
+// parklat and parkLong are latitude and longitude coordinates of par centroid
+export const generateDirectionsUrl = (userLat, userLong, parkLat, parkLong) => {
+    // add test for user latitude and longitude?
     // test that lat and long are not null or 0
-    if (lat === null || long === null || lat === 0 || long === 0) {
+    if (parkLat === null || parkLong === null || parkLat === 0 || parkLat === 0) {
         return 'no centroid coordinates';
     }
 
-    // generate driving directions url
-
+    // generate driving directions url for google maps
+    return `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLong}&destination=${parkLat},${parkLong}`;
 }
 
 // calculate distance between user location and park centroids
