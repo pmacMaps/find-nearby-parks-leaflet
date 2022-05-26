@@ -15,11 +15,13 @@ export const queryParks = (geometry, distance, webmap, layerGroup) => {
           spatialRel: "esriSpatialRelIntersects",
           returnGeometry: true,
           orderByFields: 'PARK_NAME',
-          outFields: ['PARK_NAME', 'PREMISE_ADDRESS', 'PREMISE_CITY', 'PREMISE_ZIP']
+          outFields: ['PARK_NAME', 'PREMISE_ADDRESS', 'PREMISE_CITY', 'PREMISE_ZIP', 'Lat_Cen', 'Long_Cen']
         })
         .then((response) => {
           // local parks returned from spatial query
           const data = response.features;
+          // print response.features
+          console.log(data);
 
           // set UI element > number of parks returned
           document.getElementById('numberParks').innerHTML = data.length;
