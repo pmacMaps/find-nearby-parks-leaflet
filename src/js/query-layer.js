@@ -2,7 +2,6 @@ import { queryFeatures } from '@esri/arcgis-rest-feature-layer';
 import { geoJSON } from 'leaflet';
 import { buildTable } from './table-ui.js';
 import { addErrorMsg } from './app.js';
-import { generateDirectionsUrl } from './process-centroid-coords';
 
 // query Local Parks layer from PA DCNR within a distance of user's location
 export const queryParks = (geometry, distance, webmap, layerGroup) => {
@@ -21,8 +20,6 @@ export const queryParks = (geometry, distance, webmap, layerGroup) => {
         .then((response) => {
           // local parks returned from spatial query
           const data = response.features;
-          // print response.features
-          console.log(data);
 
           // set UI element > number of parks returned
           document.getElementById('numberParks').innerHTML = data.length;
@@ -38,13 +35,7 @@ export const queryParks = (geometry, distance, webmap, layerGroup) => {
           }
 
           // build table of parks returned from spatial analysis
-          buildTable(document.getElementById('records'), data);
-
-         for (const feature of data) {
-          console.log(generateDirectionsUrl(geometry.y, geometry.x, feature.properties.Lat_Cen, feature.properties.Long_Cen));
-          };
-
-          // TODO: incorporate driving directions url into display table or park tooltip
+          buildTable(document.getElementById('records'), data, geometry.y, geometry.x);
 
           // create layer for queried parks
           const parksLayer = new geoJSON(response, {
