@@ -3,6 +3,7 @@ import { geoJSON } from 'leaflet';
 import { buildTable } from './table-ui.js';
 import { addErrorMsg } from './app.js';
 import { browserSupportsPointerEvt } from './app.js';
+import { generateDirectionsUrl, formatDirectionsUrl } from './process-centroid-coords.js';
 
 // query Local Parks layer from PA DCNR within a distance of user's location
 export const queryParks = (geometry, distance, webmap, layerGroup) => {
@@ -56,6 +57,26 @@ export const queryParks = (geometry, distance, webmap, layerGroup) => {
                 });
               }
             }
+          });
+
+          // create popup for parks layer
+          parksLayer.bindPopup(function(evt) {
+            let popupContent = '<div class="feat-popup">';
+            popupContent += '<h3>{PARK_NAME}</h3><hr />';
+            popupContent += '<ul>';
+            // TODO: control for missing info in address data
+            popupContent += '<li>Address: {PREMISE_ADDRESS}, {PREMISE_CITY}, {PREMISE_ZIP}</li>';
+            // control output for driving directions
+            const directionsUrl = generateDirectionsUrl(geometry.y, geometry.x, evt.feature.properties.Lat_Cen, evt.feature.properties.Long_Cen);
+            if (directionsUrl === 'no centroid coordinates') {
+              popupContent += '<li>No driving directions available</li>';
+            } else {
+              popupContent += `<li>Driving Directions: <a href="${directionsUrl}" target="_blank" rel="noopener noreferrer">Google Maps</a></li>`;
+            }
+            popupContent += '</ul>';
+            popupContent += '</div>';
+
+            return L.Util.template(popupContent, evt.feature.properties);
           });
 
           // add queried parks to group layer

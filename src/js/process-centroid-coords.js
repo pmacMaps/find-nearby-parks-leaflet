@@ -1,4 +1,3 @@
-
 // create driving directions to park's centroid
 // need to test that centroid coords are not null
 // if null, return nothing or default text
@@ -13,6 +12,20 @@ export const generateDirectionsUrl = (userLat, userLong, parkLat, parkLong) => {
 
     // generate driving directions url for google maps
     return `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLong}&destination=${parkLat},${parkLong}`;
+}
+
+// create anchor tag or generic text for driving directions
+export const formatDirectionsUrl = (str) => {
+    if (str === 'no centroid coordinates') {
+        return str
+    } else {
+        const linkTag = document.createElement('a');
+        linkTag.href = str;
+        linkTag.target = '_blank';
+        linkTag.rel = 'noopener noreferrer';
+        linkTag.innerHTML = 'Driving Directions';
+        return linkTag;
+    }
 }
 
 // calculate distance between user location and park centroids
