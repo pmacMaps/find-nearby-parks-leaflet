@@ -2,6 +2,7 @@ import { queryFeatures } from '@esri/arcgis-rest-feature-layer';
 import { geoJSON } from 'leaflet';
 import { buildTable } from './table-ui.js';
 import { addErrorMsg } from './app.js';
+import { browserSupportsPointerEvt } from './app.js';
 
 // query Local Parks layer from PA DCNR within a distance of user's location
 export const queryParks = (geometry, distance, webmap, layerGroup) => {
@@ -48,10 +49,12 @@ export const queryParks = (geometry, distance, webmap, layerGroup) => {
               }
             },
             onEachFeature: function(feature, layer) {
-              layer.bindTooltip(feature.properties.PARK_NAME, {
-                direction: 'center',
-                className: 'parksLabel'
-              });
+              if (browserSupportsPointerEvt) {
+                layer.bindTooltip(feature.properties.PARK_NAME, {
+                  direction: 'center',
+                  className: 'parksLabel'
+                });
+              }
             }
           });
 

@@ -1,5 +1,5 @@
 import 'bootstrap';
-import { layerGroup } from 'leaflet';
+import { layerGroup, Browser } from 'leaflet';
 import { getCurrentPosition, setQueryGeometry } from './process-user-location.js';
 import { queryParks } from './query-layer.js';
 import { webmap } from './map.js';
@@ -26,6 +26,10 @@ const overwriteLocationEl = document.getElementById('selectPa');
 let lat;
 // user's longitude
 let long;
+// test for pointer events
+export const browserSupportsPointerEvt = Browser.pointer;
+
+console.log(`Browser supports "pointer events" : ${browserSupportsPointerEvt}`);
 
 // add error messages to ui element
 export const addErrorMsg = (message) => {
