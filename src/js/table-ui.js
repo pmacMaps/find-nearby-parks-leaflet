@@ -23,12 +23,16 @@ const addRow = (row, value, type='text') => {
     let div = document.createElement('div');
     // set content of cell
     if (type === 'link') {
-        const linkTag = document.createElement('a');
-        linkTag.href = value;
-        linkTag.target = '_blank';
-        linkTag.rel = 'noopener noreferrer';
-        linkTag.innerHTML = 'Driving Directions';
-        div.appendChild(linkTag);
+        if (value === 'no centroid coordinates') {
+            div.innerHTML = value;
+        } else {
+            const linkTag = document.createElement('a');
+            linkTag.href = value;
+            linkTag.target = '_blank';
+            linkTag.rel = 'noopener noreferrer';
+            linkTag.innerHTML = 'Driving Directions';
+            div.appendChild(linkTag);
+        }
     } else {
         div.innerHTML = value;
     }
