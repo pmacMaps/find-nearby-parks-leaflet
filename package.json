@@ -28,6 +28,7 @@
     "@esri/arcgis-rest-request": "^3.4.3",
     "@popperjs/core": "^2.11.5",
     "bootstrap": "^4.6.1",
+    "esri-leaflet": "^3.0.8",
     "jquery": "^3.6.0",
     "leaflet": "^1.8.0"
   }

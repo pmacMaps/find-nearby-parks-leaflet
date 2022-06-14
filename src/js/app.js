@@ -6,6 +6,7 @@ import { webmap } from './map.js';
 import { createUserMapMarker } from './user-map-marker.js';
 import { deleteRows } from './table-ui.js';
 import { getPaCoordinates } from './random-pa-locations.js';
+import { layerControlUI } from './map-controls.js';
 import './modals.js';
 
 // ui element > user's location
@@ -33,6 +34,9 @@ export const addErrorMsg = (message) => {
   pEl.innerHTML = message;
   errorMsgEl.append(pEl);
 }
+
+// add controls to map
+layerControlUI.addTo(webmap);
 
 // layer group to hold queried parks
 const parksLayerGroup = new layerGroup();
