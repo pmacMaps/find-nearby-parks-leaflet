@@ -1,5 +1,7 @@
-import { tileLayer } from 'leaflet';
+import { tileLayer, layerGroup } from 'leaflet';
 import { tiledMapLayer } from 'esri-leaflet';
+import { vectorBasemapLayer } from 'esri-leaflet-vector';
+import { esriKey } from './constants.js';
 
 // Open Street Map
 export const osm = tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -13,8 +15,24 @@ const pennDOT = tiledMapLayer({
     attribution: 'PennDOT'
 });
 
+// PEMA Imagery
+const pemaImagery = tiledMapLayer({
+    url: ' https://imagery.pasda.psu.edu/arcgis/rest/services/pasda/PEMAImagery2018_2020/MapServer',
+    detectRetina: true,
+    attribution: 'Pennsylvania Emergency Management Agency'
+});
+
+// Labels layer from Esri
+const esriLabels = vectorBasemapLayer('ArcGIS:Imagery:Labels', {
+    apikey: esriKey
+ });
+
+// Group layer combing PEMA imagery and Esri labels
+const imageryWithLabels = layerGroup([pemaImagery, esriLabels]);
+
 // Basemap options
 export const basemapLayers = {
     "Open Street Map": osm,
-    "Streets (PennDOT)": pennDOT
+    "Streets (PennDOT)": pennDOT,
+    "Satellite (PEMA)": imageryWithLabels
 };
