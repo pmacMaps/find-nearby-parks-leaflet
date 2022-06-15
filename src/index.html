@@ -24,6 +24,7 @@
             <button class="nav-link dropdown-toggle white font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</button>
             <ul class="dropdown dropdown-menu">
                 <li><button id="search-btn" class="btn dropdown-item">Find Parks</button></li>
+                <li><button id="basemap-btn" class="btn dropdown-item">Change Basemap</button></li>
                 <li><button id="about-btn" class="btn dropdown-item">About the Map</button></li>
             </ul>
         </nav>
@@ -79,6 +80,25 @@
                     <div class="form-group">
                         <button type="button" id="applySearch" class="btn btn-secondary">Search for Parks</button>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- basemap selector widget -->
+    <div id="basemapModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Change Basemap</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="layerControlUI"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
