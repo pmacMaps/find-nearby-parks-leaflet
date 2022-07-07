@@ -1,7 +1,6 @@
 import { marker, icon } from 'leaflet';
 const iconImage = require('../assets/map-marker.png');
 
-
 const mapIcon = new icon({
     iconUrl: iconImage,
     iconSize: [30,30]
