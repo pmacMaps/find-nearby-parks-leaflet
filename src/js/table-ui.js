@@ -1,4 +1,5 @@
 import { generateDirectionsUrl } from './process-centroid-coords';
+import { testAddressText } from './process-address-text.js';
 
 // populate data into a shell table
 export const buildTable = (table,data, lat, long) => {
@@ -7,11 +8,7 @@ export const buildTable = (table,data, lat, long) => {
         // name of park
         addRow(newRow, feature.properties.PARK_NAME);
         // address of park
-        if (feature.properties.PREMISE_ADDRESS === null || feature.properties.PREMISE_ADDRESS === '' || feature.properties.PREMISE_ADDRESS === ' ') {
-            addRow(newRow, 'No address data available');
-        } else {
-            addRow(newRow, `${feature.properties.PREMISE_ADDRESS}, ${feature.properties.PREMISE_CITY}, PA ${feature.properties.PREMISE_ZIP}`);
-        }
+        addRow(newRow, testAddressText(feature.properties.PREMISE_ADDRESS, feature.properties.PREMISE_CITY, feature.properties.PREMISE_ZIP));
         // driving directions link
         addRow(newRow, generateDirectionsUrl(lat, long, feature.properties.Lat_Cen, feature.properties.Long_Cen), 'link');
     }
