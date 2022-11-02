@@ -6,7 +6,7 @@ import { webmap } from './map.js';
 import { createUserMapMarker } from './user-map-marker.js';
 import { deleteRows } from './table-ui.js';
 import { getPaCoordinates } from './random-pa-locations.js';
-import { layerControlUI } from './map-controls.js';
+import { layerControlUI, scaleBarControl } from './map-controls.js';
 import { changeLayerControlLocation } from './functions.js';
 import './modals.js';
 
@@ -42,6 +42,7 @@ export const addErrorMsg = (message) => {
 
 // add controls to map
 layerControlUI.addTo(webmap);
+scaleBarControl.addTo(webmap);
 // change where layer widget is located
 changeLayerControlLocation();
 

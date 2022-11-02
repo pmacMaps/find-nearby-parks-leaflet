@@ -1,6 +1,7 @@
 /* imports */
 @import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @Import '../../node_modules/leaflet/dist/leaflet.css';
+@import '../../node_modules/leaflet-betterscale/L.Control.BetterScale.css';
 
 html {
     -webkit-box-sizing: border-box;
@@ -109,6 +110,10 @@ nav ul.dropdown.dropdown-menu {
 .parksLabel {
     font-size: 1.05em;
     padding: 3px;
+}
+
+div.leaflet-bottom.leaflet-left {
+    bottom: 2em;
 }
 
 @media screen and (max-width:600px) {
