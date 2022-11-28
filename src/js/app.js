@@ -8,6 +8,7 @@ import { deleteRows } from './table-ui.js';
 import { getPaCoordinates } from './random-pa-locations.js';
 import { layerControlUI, scaleBarControl } from './map-controls.js';
 import { changeLayerControlLocation } from './functions.js';
+import { local_parks_service, local_parks_fields, state_parks_service, state_parks_fields } from './constants.js';
 import './modals.js';
 
 // ui element > user's location
@@ -95,7 +96,8 @@ const searchForParks = (distance) => {
     deleteRows(document.getElementById('records'));
 
     // find parks located within a distance of user's location
-    queryParks(queryGeometry, distance, webmap, parksLayerGroup, userLocationLayerGroup);
+    queryParks(local_parks_service, local_parks_fields, 'Local_Park', queryGeometry, distance, webmap, parksLayerGroup, userLocationLayerGroup);
+    queryParks(state_parks_service, state_parks_fields, 'State_Park', queryGeometry, distance, webmap, parksLayerGroup, userLocationLayerGroup);
 
     // add map layer for user's location
     const userMarker = createUserMapMarker(lat, long);

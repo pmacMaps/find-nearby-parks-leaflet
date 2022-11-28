@@ -7,9 +7,9 @@ import { generateDirectionsUrl } from './process-centroid-coords.js';
 import { testAddressText } from './process-address-text.js';
 
 // query Local Parks layer from PA DCNR within a distance of user's location
-export const queryParks = (geometry, distance, webmap, layerGroup) => {
+export const queryParks = (url, fields, flag, geometry, distance, webmap, layerGroup) => {
   queryFeatures({
-          url: "https://www.gis.dcnr.state.pa.us/agsprod/rest/services/BRC/LocalParks/MapServer/1",
+          url: url,
           f: "geojson",
           geometry: geometry,
           distance: distance,
@@ -17,8 +17,8 @@ export const queryParks = (geometry, distance, webmap, layerGroup) => {
           geometryType: "esriGeometryPoint",
           spatialRel: "esriSpatialRelIntersects",
           returnGeometry: true,
-          orderByFields: 'PARK_NAME',
-          outFields: ['PARK_NAME', 'PREMISE_ADDRESS', 'PREMISE_CITY', 'PREMISE_ZIP', 'Lat_Cen', 'Long_Cen']
+          //orderByFields: 'PARK_NAME',
+          outFields: fields
         })
         .then((response) => {
           // local parks returned from spatial query
@@ -38,15 +38,27 @@ export const queryParks = (geometry, distance, webmap, layerGroup) => {
           }
 
           // build table of parks returned from spatial analysis
-          buildTable(document.getElementById('records'), data, geometry.y, geometry.x);
+          // TODO: make it more flexible
+          //buildTable(document.getElementById('records'), data, geometry.y, geometry.x);
 
           // create layer for queried parks
           const parksLayer = new geoJSON(response, {
             style: function(feature) {
-              return {
-                color: '#FFFF00',
+              let color;
+              let fillColor;
+
+              if (flag == 'Local_Park') {
+                color = '#FFFF00';
+                fillColor = '#c9f7c9';
+              } else {
+                color = '#000000';
+                fillColor = '#FFFFFF';
+              }
+
+              return  {
+                color: color,
                 weight: 1.5,
-                fillColor: '#c9f7c9',
+                fillColor: fillColor,
                 fillOpacity: 0.5
               }
             },
@@ -61,6 +73,7 @@ export const queryParks = (geometry, distance, webmap, layerGroup) => {
           });
 
           // create popup for parks layer
+          /*
           parksLayer.bindPopup(function(evt) {
             let popupContent = '<div class="feat-popup">';
             popupContent += '<h3>{PARK_NAME}</h3><hr />';
@@ -78,15 +91,13 @@ export const queryParks = (geometry, distance, webmap, layerGroup) => {
 
             return L.Util.template(popupContent, evt.feature.properties);
           });
+          */
 
           // add queried parks to group layer
           layerGroup.addLayer(parksLayer);
 
           // set extent of map to queried parks
           webmap.fitBounds(parksLayer.getBounds());
-
-          // test
-          return data;
         })
         .catch(error => {
           console.log(`Error: ${error}`);
