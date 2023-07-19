@@ -21,17 +21,17 @@
   },
   "homepage": "https://github.com/pmacMaps/find-nearby-parks-leaflet#readme",
   "devDependencies": {
-    "parcel": "^2.5.0"
+    "parcel": "^2.9.3"
   },
   "dependencies": {
-    "@esri/arcgis-rest-feature-layer": "^3.5.0",
-    "@esri/arcgis-rest-request": "^3.5.0",
-    "@popperjs/core": "^2.11.5",
+    "@esri/arcgis-rest-feature-layer": "^3.6.0",
+    "@esri/arcgis-rest-request": "^3.6.0",
+    "@popperjs/core": "^2.11.8",
     "bootstrap": "^4.6.2",
-    "esri-leaflet": "^3.0.8",
-    "esri-leaflet-vector": "^4.0.0",
-    "jquery": "^3.6.1",
-    "leaflet": "^1.9.2",
+    "esri-leaflet": "^3.0.10",
+    "esri-leaflet-vector": "^4.1.0",
+    "jquery": "^3.7.0",
+    "leaflet": "^1.9.4",
     "leaflet-betterscale": "^1.0.0"
   }
 }

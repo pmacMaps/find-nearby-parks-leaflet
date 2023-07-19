@@ -1,7 +1,7 @@
 import { tileLayer, layerGroup } from 'leaflet';
 import { tiledMapLayer } from 'esri-leaflet';
 import { vectorBasemapLayer } from 'esri-leaflet-vector';
-import { esriKey } from './constants.js';
+import { esriKey } from './apiKey.js';
 
 // Open Street Map
 export const osm = tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
