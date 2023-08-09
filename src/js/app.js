@@ -58,13 +58,12 @@ userLocationLayerGroup.addTo(webmap);
 
 // create a function and import this function
 const searchForParks = (distance) => {
-  getCurrentPosition().then((position) => {
-    // hide search modal
+      // hide search modal
     $("#searchModal").modal('hide');
 
     if (overwriteLocationEl.checked) {
       // set location of search from PA coordinates
-      const coords =getPaCoordinates();
+      const coords = getPaCoordinates();
       lat = coords[0];
       long = coords[1];
     } else {
@@ -103,11 +102,7 @@ const searchForParks = (distance) => {
 
     // show UI element > results title and table
     resultCard.style.display = 'flex';
-  }).catch((err) => {
-    console.error(err.message);
-    addErrorMsg(err.message);
-  });
-};
+  };
 
 // Add event listeners
 // search for parks near user's location when button is clicked
