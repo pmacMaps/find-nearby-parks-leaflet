@@ -8,6 +8,7 @@ import { deleteRows } from './table-ui.js';
 import { getPaCoordinates } from './random-pa-locations.js';
 import { layerControlUI, scaleBarControl } from './map-controls.js';
 import { changeLayerControlLocation } from './functions.js';
+import { SearchControl } from './geosearch.js';
 import './modals.js';
 
 // ui element > user's location
@@ -43,6 +44,7 @@ export const addErrorMsg = (message) => {
 // add controls to map
 layerControlUI.addTo(webmap);
 scaleBarControl.addTo(webmap);
+SearchControl.addTo(webmap);
 // change where layer widget is located
 changeLayerControlLocation();
 
