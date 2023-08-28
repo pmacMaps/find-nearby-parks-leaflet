@@ -1,5 +1,5 @@
 import 'bootstrap';
-import { layerGroup, Browser } from 'leaflet';
+import { layerGroup, Browser, Popup } from 'leaflet';
 import { getCurrentPosition, setQueryGeometry } from './process-user-location.js';
 import { queryParks } from './query-layer.js';
 import { webmap } from './map.js';
@@ -57,6 +57,54 @@ const userLocationLayerGroup = new layerGroup();
 // add layer group to webmap
 parksLayerGroup.addTo(webmap);
 userLocationLayerGroup.addTo(webmap);
+
+// empty popup for geosearch results
+const geosearchPopup = new Popup({closeOnClick: true});
+
+/*** Address search results event ***/
+// need to call search control within user form
+// perhaps use ArcGIS REST?
+SearchControl.on('results', function(data) {  
+  // make sure there is a result
+  if (data.results.length > 0) {
+      // set map view
+      webmap.setView(data.results[0].latlng, 15);
+      // open pop-up for location
+      geosearchPopup.setLatLng(data.results[0].latlng).setContent(data.results[0].text).openOn(webmap);
+      // TODO: process parks search 
+      lat = data.results[0].latlng.lat;
+      long = data.results[0].latlng.lng;
+      console.log(`Latitude: ${lat}; Longitude: ${long}`);
+      // create geometry object from user's location
+      const queryGeometry = setQueryGeometry(lat, long);
+      // remove existing parks from map
+    parksLayerGroup.getLayers().forEach(element => {
+      element.removeFrom(webmap);
+    });
+
+    // remove existing user marker from map
+    userLocationLayerGroup.getLayers().forEach(element => {
+      element.removeFrom(webmap);
+    });
+
+    // delete existing content from table
+    deleteRows(document.getElementById('records'));
+
+    // find parks located within a distance of user's location
+    //queryParks(queryGeometry, distance, webmap, parksLayerGroup, userLocationLayerGroup);
+    queryParks(queryGeometry, 1.5, webmap, parksLayerGroup, userLocationLayerGroup);
+
+    // add map layer for user's location
+    const userMarker = createUserMapMarker(lat, long);
+    userLocationLayerGroup.addLayer(userMarker);
+
+    // show UI element > results title and table
+    resultCard.style.display = 'flex';
+  } else {
+      // open pop-up with no results message
+      geosearchPopup.setLatLng(map.getCenter()).setContent('No results were found. Please try a different address.').openOn(webmap);
+  } 
+});
 
 // create a function and import this function
 const searchForParks = (distance) => {
